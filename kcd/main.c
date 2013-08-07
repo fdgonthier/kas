@@ -94,6 +94,7 @@ static void kdaemon_init() {
     kstr_init(&global_opts.db_port);
     kstr_init(&global_opts.db_name);
     kstr_init(&global_opts.catchall_tbx);
+    kstr_init(&global_opts.kcdhelper_binary_path);
 }
 
 static void kdaemon_clean() {
@@ -123,6 +124,7 @@ static void kdaemon_clean() {
     kstr_clean(&global_opts.db_port);
     kstr_clean(&global_opts.db_name);
     kstr_clean(&global_opts.catchall_tbx);
+    kstr_clean(&global_opts.kcdhelper_binary_path);
     
     /* This is technically incorrect (we may be signaled here), but it's no big
      * deal.
@@ -449,6 +451,7 @@ static int kdaemon_parse_kcd_ini() {
         kdaemon_get_ini_str(d, "config:db_port", &global_opts.db_port);
         kdaemon_get_ini_str(d, "config:db_name", &global_opts.db_name);
         kdaemon_get_ini_str(d, "config:catchall_tbx", &global_opts.catchall_tbx);
+        kdaemon_get_ini_str(d, "config:kcdhelper_binary_path", &global_opts.kcdhelper_binary_path);
         
 	/* Switch '\n' for real newlines. */
         kstr_replace(&global_opts.web_link, "\\n", "\n");

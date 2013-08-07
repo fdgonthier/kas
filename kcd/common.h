@@ -99,6 +99,7 @@ struct kdaemon_opts {
     kstr db_port;
     kstr db_name;
     kstr catchall_tbx;
+    kstr kcdhelper_binary_path;
 };
 
 extern struct kdaemon_opts global_opts;

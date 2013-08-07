@@ -847,7 +847,7 @@ int kcd_process_start_and_collect(struct kcd_process *self, char **argv, void *g
 int kcd_exec_kcdhelper(char *task, uint64_t kws_id, int log_level) {
     int error;
     char kws_id_buf[100];
-    char *argv[] = { "/usr/bin/kcdhelper", task, kws_id_buf, NULL };
+    char *argv[] = { global_opts.kcdhelper_binary_path.data, task, kws_id_buf, NULL };
     struct kcd_process process;
     
     kmod_log_msg(log_level, "kcd_exec_kcdhelper() called with task %s.\n", task);
