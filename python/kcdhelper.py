@@ -8,11 +8,13 @@ from klog import *
 from kout import *
 from kpg import *
 from kanp import *
+from kcd_lib import get_kcd_external_conf_object
 import ConfigParser, getopt, shutil
 from config import CONF_DIR
 
 # Path to the kfs.ini file.
 kfs_ini_path=os.path.join(CONF_DIR, "kcd/kfs.ini")
+kcd_ini_path=os.path.join(CONF_DIR, "kcd/kcd.ini");
 
 # Global configuration object.
 admin_conf = None
@@ -22,7 +24,7 @@ db = None
  
 # This function parses the configuration file of this script and returns the
 # corresponding configuration object.
-def get_config_object():
+def get_kfs_config_object():
     cfg = PropStore()
     parser = read_ini_file(kfs_ini_path)
     cfg.kfs_dir = parser.get("config", "kfs_dir")
@@ -57,7 +59,7 @@ def get_kws_status(kws_id):
 def delete_kws(kws_id):
     arg = ANP_msg()
     arg.add_u64(kws_id)
-    write_query("SELECT delete_kws(E'%s')" % (pgdb.escape_bytea(arg.get_payload())))
+    write_query("SELECT delete_kws('%s')" % (pgdb.escape_bytea(arg.get_payload())))
     db.commit()
     sync_kfs(kws_id)
 
@@ -130,11 +132,16 @@ def main():
     if debug_flag: do_debug()
     
     # Parse the configuration.
-    admin_conf = get_config_object()
+    admin_conf = get_kfs_config_object()
+    master_conf = get_kcd_external_conf_object()
         
     # Open the Postgres connection.
     debug("Opening Postgres connection.")
-    db = open_pg_conn("kcd")
+    db = open_pg_conn(database = "kcd", 
+                      host = master_conf.db_host, 
+                      port = master_conf.db_port, 
+                      user = master_conf.db_user,
+                      password = master_conf.db_passwd)
     
     # Dispatch.
     try:
