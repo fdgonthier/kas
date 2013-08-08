@@ -229,14 +229,13 @@ def get_ktlstunnel_target():
 
 
 def config_h_build(target, source, env):
-        
-
+        pg_libdir = commands.getoutput('pg_config --libdir').strip()
         for a_target, a_source in zip(target, source):
                 config_h = file(str(a_target), "w")
         config_h_in = file(str(a_source), "r")
         config_h.write(config_h_in.read() % {
                         'config_path': opts_dict['CONFIG_PATH'],
-                        'pglib_path': 
+                        'pg_libdir': pg_libdir
                         })
         config_h_in.close()
         config_h.close()
@@ -307,8 +306,8 @@ def get_build_list(build_flag, install_flag):
 	build_list_init = 1
 	
         # Always generate the configuration file.
-        build_list.append(AlwaysBuild(BUILD_ENV.Command('common/config_path.h', 
-                                                        'common/config_path.h.in',
+        build_list.append(AlwaysBuild(BUILD_ENV.Command('common/config.h',
+                                                        'common/config.h.in',
                                                         config_h_build)))
 
 	if KCD_FLAG:

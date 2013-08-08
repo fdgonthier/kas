@@ -356,7 +356,7 @@ static void* kcdpg_libpq_load_sym(char *name) {
 
 /* This function loads the functions from libpq. */
 static void kcdpg_libpq_init() {
-     kcdpg_libpq.handle = dlopen("/usr/lib/libpq.so.5", RTLD_LAZY | RTLD_LOCAL);
+     kcdpg_libpq.handle = dlopen(PG_LIBDIR"/libpq.so.5", RTLD_LAZY | RTLD_LOCAL);
      if (!kcdpg_libpq.handle) { elog(ERROR, "cannot load libpq: %s", dlerror()); }
      
      kcdpg_libpq.PQescapeBytea = kcdpg_libpq_load_sym("PQescapeBytea");

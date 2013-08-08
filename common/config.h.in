@@ -2,5 +2,6 @@
 #define _CONFIG_PATH_H
 
 #define CONFIG_PATH "%(config_path)s"
+#define PG_LIBDIR "%(pg_libdir)s"
 
 #endif // _CONFIG_PATH_H
