@@ -3,8 +3,8 @@
 #ifndef _PG_H
 #define _PG_H
 
-#include <postgresql/libpq-fe.h>
-#include <postgresql/libpq/libpq-fs.h>
+#include <libpq-fe.h>
+#include <libpq/libpq-fs.h>
 
 /* This structure represents a connection to a postgres database. */
 struct pg_db_conn {

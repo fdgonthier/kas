@@ -105,10 +105,12 @@ def get_kcd_target():
 			'common/proxy.c',
 			]
 	
-	cpp_path = 	[KTOOLS_CPP_PATH, 'common/', 'kcd']
+        pg_lib_path =   commands.getoutput('pg_config --libdir').strip().split()
+        pg_inc_path =   commands.getoutput('pg_config --includedir').strip().split()
+	cpp_path = 	[KTOOLS_CPP_PATH, 'common/', 'kcd'] + pg_inc_path
 	cpp_defines =	[]
 	link_flags = 	['-rdynamic']
-	lib_path =	[KTOOLS_LIB_PATH]
+	lib_path =	[KTOOLS_LIB_PATH] + pg_lib_path
 	lib_list = 	['ktools', 'gnutls', 'pq', 'mhash']
 	
 	git_rev = get_git_rev()
@@ -406,6 +408,12 @@ BUILD_ENV = KEnvironment(ENV = os.environ)
 
 ### Set compilation flags.
 BUILD_ENV.Append(CCFLAGS = [ '-fno-strict-aliasing'])
+
+# Add the PostgreSQL configuration to the relevant build paths. This
+# is required in CentOS, who doesn't install PostgreSQL in a common
+# LFS-compatible directory.
+BUILD_ENV.Append(LIBPATH = commands.getoutput('pg_config --libdir').strip().split())
+BUILD_ENV.Append(CPPPATH = commands.getoutput('pg_config --includedir').strip().split())
 
 ### Get GCC version.
 gcc_version = 4
