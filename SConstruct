@@ -75,35 +75,35 @@ def get_shared_object_list(env, build_dir, src_dir, src_list):
 		object_list.append(env.SharedObject(build_dir + regex.match(source).group(1), src_dir + source))
 	
 	return object_list
-    
+
 ### This function returns the target to build the kcd program.
 def get_kcd_target():
 
     	src_list = 	[
-	    	    	'kcd/frontend.c',
-			'kcd/k3p.c',
-			'kcd/kcd_misc.c',
-			'kcd/kfs.c',
-			'kcd/kmod_transfer.c',
-			'kcd/kws.c',
-                        'kcd/mail.c',
-	    	    	'kcd/main.c',
-			'kcd/mgt.c',
-                        'kcd/misc_cmd.c',
-                        'kcd/notif.c',
-                        'kcd/ticket.c',
-			'kcd/vnc.c',
-			'common/anp.c',
-			'common/anp_tls.c',
-			'common/iniparser.c',
-			'common/kdaemon.c',
-                        'common/pg_common.c',
-			'common/kmod_base.c',
-			'common/ktls.c',
-			'common/misc.c',
-			'common/pg.c',
-			'common/proxy.c',
-			]
+                'kcd/frontend.c',
+                'kcd/k3p.c',
+                'kcd/kcd_misc.c',
+                'kcd/kfs.c',
+                'kcd/kmod_transfer.c',
+                'kcd/kws.c',
+                'kcd/mail.c',
+                'kcd/main.c',
+                'kcd/mgt.c',
+                'kcd/misc_cmd.c',
+                'kcd/notif.c',
+                'kcd/ticket.c',
+                'kcd/vnc.c',
+                'common/anp.c',
+                'common/anp_tls.c',
+                'common/iniparser.c',
+                'common/kdaemon.c',
+                'common/pg_common.c',
+                'common/kmod_base.c',
+                'common/ktls.c',
+                'common/misc.c',
+                'common/pg.c',
+                'common/proxy.c',
+                ]
 	
         pg_lib_path =   commands.getoutput('pg_config --libdir').strip().split()
         pg_inc_path =   commands.getoutput('pg_config --includedir').strip().split()
@@ -121,13 +121,13 @@ def get_kcd_target():
 	
 	env = BUILD_ENV.Clone()
 	env.Append	(
-			CPPPATH = cpp_path,
-			CPPDEFINES = cpp_defines,
-			CCFLAGS = [],
-			LINKFLAGS = link_flags,
-			LIBPATH = lib_path,
-			LIBS = lib_list,
-			)
+                CPPPATH = cpp_path,
+                CPPDEFINES = cpp_defines,
+                CCFLAGS = [],
+                LINKFLAGS = link_flags,
+                LIBPATH = lib_path,
+                LIBS = lib_list,
+                )
 	
 	kcd_target = 'build/kcd'
 	
@@ -139,11 +139,11 @@ def get_kcd_target():
 ### This function returns the target to build the kcdpg shared library.
 def get_kcdpg_target():
     	src_list = 	[
-                        'kcdpg/lib.c',
-			'common/anp.c',
-                        'common/pg_common.c',
-			'common/kmod_base.c'
-			]
+                'kcdpg/lib.c',
+                'common/anp.c',
+                'common/pg_common.c',
+                'common/kmod_base.c'
+                ]
 	
         proc = Popen(args = ["pg_config", "--includedir-server", "--includedir"], stdout=PIPE, shell = False)
         (pg_hdr, err) = proc.communicate()
@@ -156,13 +156,13 @@ def get_kcdpg_target():
 	
 	env = BUILD_ENV.Clone()
 	env.Append	(
-			CPPPATH = cpp_path,
-			CPPDEFINES = cpp_defines,
-			CCFLAGS = [],
-			LINKFLAGS = link_flags,
-			LIBPATH = lib_path,
-			LIBS = lib_list,
-			)
+                CPPPATH = cpp_path,
+                CPPDEFINES = cpp_defines,
+                CCFLAGS = [],
+                LINKFLAGS = link_flags,
+                LIBPATH = lib_path,
+                LIBS = lib_list,
+                )
 	
 	kcd_target = 'build/kcdpg'
 	
@@ -170,26 +170,26 @@ def get_kcdpg_target():
 		target = kcd_target,
 		source = get_shared_object_list(env, 'build/kcdpg', '', src_list),
 		)
-    
+
 
 ### This function returns the target to build the ktlstunnel program.
 def get_ktlstunnel_target():
 
     	src_list = 	[
-	    	    	'ktlstunnel/main.c',
-			'ktlstunnel/tunnel.c',
-			'common/kmod_base.c',
-			'common/ktls.c',
-			'common/misc.c',
-			'common/proxy.c',
-			]
+                'ktlstunnel/main.c',
+                'ktlstunnel/tunnel.c',
+                'common/kmod_base.c',
+                'common/ktls.c',
+                'common/misc.c',
+                'common/proxy.c',
+                ]
 	
         cpp_path = [KTOOLS_CPP_PATH, 'common/', 'ktlstunnel']
         
         if BUILD_ENV["PLATFORM"] == "windows":
                 cpp_path += [ 'C:/birtz/lib/pthreads-w32-2-8-0-release/teambox',
                               'C:/birtz/lib/gnutls-2.4.1/teambox'
-                            ]
+                              ]
 	cpp_defines =	[]
 	link_flags = 	[]
 	lib_path =	[KTOOLS_LIB_PATH]
@@ -201,8 +201,8 @@ def get_ktlstunnel_target():
                 lib_list += [ 'ws2_32', 'pthread' ]
                 lib_path += [ 'C:/birtz/lib/pthreads-w32-2-8-0-release/teambox',
                               'C:/birtz/lib/gnutls-2.4.1/teambox'
-                            ]
-         
+                              ]
+                
 	git_rev = get_git_rev()
         if BUILD_ENV["PLATFORM"] == "windows":
 		cpp_defines.append('-DBUILD_ID=\\"%s\\"' % git_rev);
@@ -211,13 +211,13 @@ def get_ktlstunnel_target():
 	
 	env = BUILD_ENV.Clone()
 	env.Append	(
-			CPPPATH = cpp_path,
-			CPPDEFINES = cpp_defines,
-			CCFLAGS = [],
-			LINKFLAGS = link_flags,
-			LIBPATH = lib_path,
-			LIBS = lib_list,
-			)
+                CPPPATH = cpp_path,
+                CPPDEFINES = cpp_defines,
+                CCFLAGS = [],
+                LINKFLAGS = link_flags,
+                LIBPATH = lib_path,
+                LIBS = lib_list,
+                )
         
         
 	ktlstunnel_target = 'build/ktlstunnel'
@@ -229,12 +229,15 @@ def get_ktlstunnel_target():
 
 
 def config_h_build(target, source, env):
-    #config_h_defines = conf_options
-  
-    for a_target, a_source in zip(target, source):
-        config_h = file(str(a_target), "w")
+        
+
+        for a_target, a_source in zip(target, source):
+                config_h = file(str(a_target), "w")
         config_h_in = file(str(a_source), "r")
-        config_h.write(config_h_in.read() % {'config_path': opts_dict['CONFIG_PATH']})
+        config_h.write(config_h_in.read() % {
+                        'config_path': opts_dict['CONFIG_PATH'],
+                        'pglib_path': 
+                        })
         config_h_in.close()
         config_h.close()
 
@@ -243,27 +246,27 @@ def config_h_build(target, source, env):
 def get_vnc_target():
 
     	src_list = 	[
-			'vnc_reflector/main.c',
-			'vnc_reflector/logging.c',
-			'vnc_reflector/active.c',
-			'vnc_reflector/actions.c',
-			'vnc_reflector/host_connect.c',
-			'vnc_reflector/d3des.c',
-			'vnc_reflector/rfblib.c',
-			'vnc_reflector/async_io.c',
-			'vnc_reflector/host_io.c',
-			'vnc_reflector/client_io.c',
-			'vnc_reflector/encode.c',
-			'vnc_reflector/region.c',
-			'vnc_reflector/translate.c',
-			'vnc_reflector/control.c',
-			'vnc_reflector/encode_tight.c',
-			'vnc_reflector/decode_hextile.c',
-			'vnc_reflector/decode_tight.c',
-			'vnc_reflector/fbs_files.c',
-			'vnc_reflector/region_more.c',
-                        'vnc_reflector/decode_cursor.c',
-			]
+                'vnc_reflector/main.c',
+                'vnc_reflector/logging.c',
+                'vnc_reflector/active.c',
+                'vnc_reflector/actions.c',
+                'vnc_reflector/host_connect.c',
+                'vnc_reflector/d3des.c',
+                'vnc_reflector/rfblib.c',
+                'vnc_reflector/async_io.c',
+                'vnc_reflector/host_io.c',
+                'vnc_reflector/client_io.c',
+                'vnc_reflector/encode.c',
+                'vnc_reflector/region.c',
+                'vnc_reflector/translate.c',
+                'vnc_reflector/control.c',
+                'vnc_reflector/encode_tight.c',
+                'vnc_reflector/decode_hextile.c',
+                'vnc_reflector/decode_tight.c',
+                'vnc_reflector/fbs_files.c',
+                'vnc_reflector/region_more.c',
+                'vnc_reflector/decode_cursor.c',
+                ]
 	
 	cpp_path = 	['vnc_reflector/']
 	cpp_defines =	['USE_POLL']
@@ -273,13 +276,13 @@ def get_vnc_target():
 	
 	env = BUILD_ENV.Clone()
 	env.Append	(
-			CPPPATH = cpp_path,
-			CPPDEFINES = cpp_defines,
-			CCFLAGS = ['-w'],
-			LINKFLAGS = link_flags,
-			LIBPATH = lib_path,
-			LIBS = lib_list,
-			)
+                CPPPATH = cpp_path,
+                CPPDEFINES = cpp_defines,
+                CCFLAGS = ['-w'],
+                LINKFLAGS = link_flags,
+                LIBPATH = lib_path,
+                LIBS = lib_list,
+                )
 	
 	vnc_target = 'build/vncreflector'
 	
@@ -287,8 +290,8 @@ def get_vnc_target():
 		target = vnc_target,
 		source = get_static_object_list(env, 'build/vncreflector', '', src_list),
 		)
-    	
-		
+
+
 # This function populates the build list and returns it. It's OK to call this
 # function many times, it will only populate the list once. If 'buid_flag' is
 # true, build targets will be added. If 'install_flag' is true, installation
@@ -309,24 +312,24 @@ def get_build_list(build_flag, install_flag):
                                                         config_h_build)))
 
 	if KCD_FLAG:
-	    t = get_kcd_target()
-	    if build_flag: build_list.append(t)
-	    if install_flag: build_list.append(AlwaysBuild(BUILD_ENV.Install(BINDIR, source=t)))
+                t = get_kcd_target()
+                if build_flag: build_list.append(t)
+                if install_flag: build_list.append(AlwaysBuild(BUILD_ENV.Install(BINDIR, source=t)))
         
         if KCDPG_FLAG:
-            t = get_kcdpg_target()
-	    if build_flag: build_list.append(t)
-	    if install_flag: build_list.append(AlwaysBuild(BUILD_ENV.Install(PGPKGLIBDIR, source=t)))
+                t = get_kcdpg_target()
+                if build_flag: build_list.append(t)
+                if install_flag: build_list.append(AlwaysBuild(BUILD_ENV.Install(PGPKGLIBDIR, source=t)))
 	
 	if KTLSTUNNEL_FLAG:
-	    t = get_ktlstunnel_target()
-	    if build_flag: build_list.append(t)
-	    if install_flag: build_list.append(AlwaysBuild(BUILD_ENV.Install(BINDIR, source=t)))
-	    
+                t = get_ktlstunnel_target()
+                if build_flag: build_list.append(t)
+                if install_flag: build_list.append(AlwaysBuild(BUILD_ENV.Install(BINDIR, source=t)))
+                
 	if VNC_FLAG:
-	    t = get_vnc_target()
-	    if build_flag: build_list.append(t)
-	    if install_flag: build_list.append(AlwaysBuild(BUILD_ENV.Install(BINDIR, source=t)))
+                t = get_vnc_target()
+                if build_flag: build_list.append(t)
+                if install_flag: build_list.append(AlwaysBuild(BUILD_ENV.Install(BINDIR, source=t)))
 
         if install_flag:
                 build_list.append(SConscript("python/SConscript", 
@@ -351,23 +354,23 @@ opts_env = Environment()
 ### Load the options values.
 opts = Options('build/build.conf')
 opts.AddOptions	(
-		(BoolOption('debug', 'enable debugging', 1)),
-		(BoolOption('kcd', 'build kcd', 1)),
-		(BoolOption('kcdpg', 'build kcdpg', 1)),
-		(BoolOption('ktlstunnel', 'build ktlstunnel', 1)),
-		(BoolOption('vnc', 'build vncreflector', 1)),
-		('libktools_include', 'Location of include files for libktools', '#../libktools/src'),
-		('libktools_lib', 'Location of library files for libktools', '#../libktools/build'),
-		("DESTDIR", 'Root of installation', '/'),
-		('BINDIR', 'Executable path', '/bin'),
-		('PGPKGLIBDIR', 'Postgresql library path', '/usr/lib/postgresql/9.1/lib'),
-                ('CONFIG_PATH', 'Configuration path', '/etc/teambox'),
-                ('PYTHONDIR', 'Directory where Python files are installed', '/usr/share/teambox/python'),
-                ('WWWDIR', 'Root directory of the web applications', '/usr/share/teambox/www'),
-                ('VIRTUALENV', 'Path to the Python virtual environment made externally for the Python-based components.', '/usr/share/teambox/virtualenv'),
-                ('DBDIR', 'Directory where to copy the database (.sqlpy) files.', '/usr/share/teambox/db')
-		)
-		
+        (BoolOption('debug', 'enable debugging', 1)),
+        (BoolOption('kcd', 'build kcd', 1)),
+        (BoolOption('kcdpg', 'build kcdpg', 1)),
+        (BoolOption('ktlstunnel', 'build ktlstunnel', 1)),
+        (BoolOption('vnc', 'build vncreflector', 1)),
+        ('libktools_include', 'Location of include files for libktools', '#../libktools/src'),
+        ('libktools_lib', 'Location of library files for libktools', '#../libktools/build'),
+        ("DESTDIR", 'Root of installation', '/'),
+        ('BINDIR', 'Executable path', '/bin'),
+        ('PGPKGLIBDIR', 'Postgresql library path', '/usr/lib/postgresql/9.1/lib'),
+        ('CONFIG_PATH', 'Configuration path', '/etc/teambox'),
+        ('PYTHONDIR', 'Directory where Python files are installed', '/usr/share/teambox/python'),
+        ('WWWDIR', 'Root directory of the web applications', '/usr/share/teambox/www'),
+        ('VIRTUALENV', 'Path to the Python virtual environment made externally for the Python-based components.', '/usr/share/teambox/virtualenv'),
+        ('DBDIR', 'Directory where to copy the database (.sqlpy) files.', '/usr/share/teambox/db')
+        )
+
 opts.Update(opts_env)
 opts_dict = opts_env.Dictionary()
 
@@ -385,16 +388,16 @@ PGPKGLIBDIR = os.path.normpath(opts_dict['DESTDIR'] + "/" + opts_dict['PGPKGLIBD
 
 ### Update the options values and save.
 if not os.path.isdir('build/'):
-    os.mkdir('build/')
-    
+        os.mkdir('build/')
+        
 opts.Save('build/build.conf', opts_env)
 
 ### Setup help text.
 help_text = "Type: 'scons config [-Q]' to show current configuration.\n"\
-	    "      'scons build' to build the targets.\n"\
-	    "      'scons install' to install the targets.\n"\
-	    "      'scons uninstall' to uninstall the targets.\n"\
-	    "      'scons clean' to clean built targets.\n"
+    "      'scons build' to build the targets.\n"\
+    "      'scons install' to install the targets.\n"\
+    "      'scons uninstall' to uninstall the targets.\n"\
+    "      'scons clean' to clean built targets.\n"
 opts_help = opts.GenerateHelpText(opts_env)
 Help(help_text)
 
@@ -418,10 +421,10 @@ BUILD_ENV.Append(CPPPATH = commands.getoutput('pg_config --includedir').strip().
 ### Get GCC version.
 gcc_version = 4
 try:
-    gcc_version_match = re.compile('^(\d)\.').match(BUILD_ENV["CXXVERSION"])
-    if gcc_version_match: gcc_version = int(gcc_version_match.group(1))
+        gcc_version_match = re.compile('^(\d)\.').match(BUILD_ENV["CXXVERSION"])
+        if gcc_version_match: gcc_version = int(gcc_version_match.group(1))
 except: pass
-    
+
 
 if gcc_version >= 4:
 	BUILD_ENV.Append(CCFLAGS = [ '-Wno-pointer-sign' ])
@@ -476,7 +479,7 @@ elif 'clean' in COMMAND_LINE_TARGETS:
 
 ### No targets specified.
 elif len(COMMAND_LINE_TARGETS) == 0:
-		
+        
 	### Just print help.
 	sys.stdout.write("\n%s\n" % help_text)
 	Exit(0)
