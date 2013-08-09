@@ -12,9 +12,9 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="Teambox collaboration daemon notification mode"
 NAME=kcdnotif
-DAEMON="@@PREFIX@@/bin/kcd"
-SCRIPTNAME=/etc/init.d/$NAME.sh
 LOCKFILE=/var/lock/kcdnotif.lock
+KCD="@@PREFIX@@/bin/kcd"
+SCRIPTNAME=/etc/init.d/$NAME.sh
 
 case "$1" in
 start)
