@@ -51,7 +51,7 @@ for pyName in python_PROGS:
 
     tf_env.Textfile(shName, ["#!/bin/sh",
                              "export PYTHONPATH=$PYTHONDIR",
-                             "$PYTHONDIR/" + str(pyName) + ' $@'])
+                             "exec python $PYTHONDIR/" + str(pyName) + ' $@'])
     installs += tf_env.Install(target = opts_dict['PYTHONDIR'], 
                                source = pyName)
     shInst = tf_env.Install(target = BINDIR, source = shName)
