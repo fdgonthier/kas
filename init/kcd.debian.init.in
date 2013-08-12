@@ -24,6 +24,8 @@ start)
         if [ `$KCD -P $LOCKFILE query` != "running" ]; then
             $KCD -P $LOCKFILE closefd start frontend
         fi
+        # Little delay here to make sure it's running.
+        sleep 1
         if [ `$KCD -P $LOCKFILE query` != "running" ]; then
             log_failure_msg "Starting $DESC"
             exit 1
