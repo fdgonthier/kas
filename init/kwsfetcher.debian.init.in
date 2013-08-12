@@ -23,7 +23,7 @@ PYTHONPATH="@@PREFIX@@/share/python-support/kpython"
 export PYTHONPATH
 
 # Execute the LSB helpers
-source /lib/lsb/init-functions
+. /lib/lsb/init-functions
 
 running() {
     if [ -f $PIDFILE ]; then

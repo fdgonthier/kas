@@ -17,7 +17,7 @@ KCD="@@PREFIX@@/bin/kcd"
 SCRIPTNAME=/etc/init.d/$NAME.sh
 
 # Execute the LSB helpers
-source /lib/lsb/init-functions
+. /lib/lsb/init-functions
 
 case "$1" in
 start)
@@ -32,7 +32,7 @@ start)
         fi
 ;;
 status)
-        if [ `$KCD -P $LOCKFILE query` == "running" ]; then
+        if [ `$KCD -P $LOCKFILE query` = "running" ]; then
             echo "Running"
             exit 0
         else
@@ -41,7 +41,7 @@ status)
         fi
 ;;
 stop)
-        if [ `$KCD -P $LOCKFILE query` == "running" ]; then
+        if [ `$KCD -P $LOCKFILE query` = "running" ]; then
             $KCD -P $LOCKFILE stop
         fi
         if [ `$KCD -P $LOCKFILE query` != "running" ]; then
