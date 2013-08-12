@@ -48,9 +48,9 @@ case "$1" in
         sleep 1
         # Make sure it's running.
         if running; then
-            log_success_msg $DESC
+            log_success_msg "Starting $DESC"
         else
-            log_failure_msg $DESC
+            log_failure_msg "Starting $DESC"
         fi
 ;;
 status)
@@ -67,9 +67,9 @@ stop)
             killproc -p $PIDFILE -d 5 -TERM $DAEMON
         fi
         if ! running; then
-            log_success_msg $DESC
+            log_success_msg "Stopping $DESC"
         else
-            log_failure_msg $DESC
+            log_failure_msg "Stopping $DESC"
         fi
 ;;
 
