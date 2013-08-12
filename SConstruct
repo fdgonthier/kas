@@ -365,6 +365,7 @@ opts.AddOptions	(
         ('PGPKGLIBDIR', 'Postgresql library path', '/usr/lib/postgresql/9.1/lib'),
         ('CONFIG_PATH', 'Configuration path', '/etc/teambox'),
         ('PYTHONDIR', 'Directory where Python files are installed', '/usr/share/teambox/python'),
+        ('APACHEDIR', 'Path where to put the Apache configuration', '/etc/apache2/conf.d'),
         ('WWWDIR', 'Root directory of the web applications', '/usr/share/teambox/www'),
         ('VIRTUALENV', 'Path to the Python virtual environment made externally for the Python-based components.', '/usr/share/teambox/virtualenv'),
         ('DBDIR', 'Directory where to copy the database (.sqlpy) files.', '/usr/share/teambox/db')

@@ -120,7 +120,7 @@ for rf in random_files:
 
 # The Apache configurationye
 apacheCfgTmpl = File(os.path.join("config", "teambox-site.conf.in"))
-apacheCfgTarget = Dir("/etc/apache2/conf.d")
+apacheCfgTarget = Dir(opts_dict['APACHEDIR'])
 apacheCfgSource = File("config/teambox-site.conf")
 
 tf_env.Substfile(apacheCfgTmpl, 
